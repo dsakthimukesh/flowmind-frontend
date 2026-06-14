@@ -21,6 +21,7 @@ const registerSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  organizationName: z.string().min(1, "Organization name is required"),
 })
 
 type RegisterValues = z.infer<typeof registerSchema>
@@ -36,6 +37,7 @@ export const RegisterPage = () => {
       lastName: "",
       email: "",
       password: "",
+      organizationName: "",
     },
   })
 
@@ -106,6 +108,20 @@ export const RegisterPage = () => {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input placeholder="••••••••" type="password" disabled={isPending} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="organizationName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Organization Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="FlowMind Inc" disabled={isPending} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

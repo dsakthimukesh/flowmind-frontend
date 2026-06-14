@@ -4,8 +4,11 @@ import { type ApiKeyItem, type ApiKeyCreatedResponse } from "../types/apiKey.typ
 import { type CreateApiKeyInput } from "../schemas/createApiKey.schema"
 
 export const getApiKeys = async (): Promise<ApiResponse<ApiKeyItem[]>> => {
-  const response = await apiClient.get<ApiResponse<ApiKeyItem[]>>("/v1/api-keys")
-  return response.data
+  const response = await apiClient.get<ApiResponse<any>>("/v1/api-keys")
+  return {
+    ...response.data,
+    data: response.data.data.apiKeys,
+  }
 }
 
 export const createApiKey = async (

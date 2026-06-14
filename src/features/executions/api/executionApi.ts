@@ -20,37 +20,55 @@ export interface GetExecutionLogsParams {
 export const getExecutions = async (
   params?: GetExecutionsParams
 ): Promise<ApiResponse<WorkflowExecution[]>> => {
-  const response = await apiClient.get<ApiResponse<WorkflowExecution[]>>("/v1/executions", {
+  const response = await apiClient.get<ApiResponse<any>>("/v1/executions", {
     params: {
       page: params?.page,
-      limit: params?.pageSize, // Use limit to map to backend's expectation or pageSize depending on mapping
+      limit: params?.pageSize,
       pageSize: params?.pageSize,
       workflowId: params?.workflowId,
     },
   })
-  return response.data
+  return {
+    ...response.data,
+    data: response.data.data.executions,
+  }
 }
 
 export const getExecution = async (id: string): Promise<ApiResponse<WorkflowExecution>> => {
-  const response = await apiClient.get<ApiResponse<WorkflowExecution>>(`/v1/executions/${id}`)
-  return response.data
+  const response = await apiClient.get<ApiResponse<any>>(`/v1/executions/${id}`)
+  return {
+    ...response.data,
+    data: response.data.data.execution,
+  }
 }
 
 export const getExecutionLogs = async (
   id: string,
   params?: GetExecutionLogsParams
 ): Promise<ApiResponse<ExecutionLog[]>> => {
-  const response = await apiClient.get<ApiResponse<ExecutionLog[]>>(`/v1/executions/${id}/logs`, {
+  const response = await apiClient.get<ApiResponse<any>>(`/v1/executions/${id}/logs`, {
     params: {
       page: params?.page,
       limit: params?.pageSize,
       pageSize: params?.pageSize,
     },
   })
-  return response.data
+  return {
+    ...response.data,
+    data: response.data.data.logs,
+    meta: {
+      page: response.data.data.page,
+      limit: response.data.data.pageSize,
+      totalItems: response.data.data.total,
+      totalPages: Math.ceil(response.data.data.total / (response.data.data.pageSize || 1)),
+    },
+  }
 }
 
 export const getExecutionMetrics = async (): Promise<ApiResponse<ExecutionMetrics>> => {
-  const response = await apiClient.get<ApiResponse<ExecutionMetrics>>("/v1/metrics/executions")
-  return response.data
+  const response = await apiClient.get<ApiResponse<any>>("/v1/metrics/executions")
+  return {
+    ...response.data,
+    data: response.data.data.metrics,
+  }
 }
