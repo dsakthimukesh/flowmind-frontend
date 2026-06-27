@@ -12,6 +12,7 @@ import { useWorkflow } from "../hooks/useWorkflow"
 import { useWorkflowVersions } from "../hooks/useWorkflowVersions"
 import { useCreateWorkflowVersion } from "../hooks/useCreateWorkflowVersion"
 import { WorkflowCard } from "../components/WorkflowCard"
+import { WorkflowWebhookInfoCard } from "../components/WorkflowWebhookInfoCard"
 import { WorkflowHeader } from "../components/WorkflowHeader"
 import { VersionHistoryTable } from "../components/VersionHistoryTable"
 import { PublishVersionDialog } from "../components/PublishVersionDialog"
@@ -111,9 +112,10 @@ export const WorkflowDetailPage = () => {
       />
 
       <div className="grid gap-6 md:grid-cols-3">
-        {/* Workflow info card */}
-        <div className="md:col-span-1">
+        {/* Workflow info card & webhook triggers */}
+        <div className="md:col-span-1 space-y-6">
           <WorkflowCard workflow={workflow} />
+          <WorkflowWebhookInfoCard workflowId={id} />
         </div>
 
         {/* Versions Table */}

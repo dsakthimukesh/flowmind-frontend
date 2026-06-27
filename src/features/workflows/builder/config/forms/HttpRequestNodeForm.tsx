@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useWorkflowBuilderStore } from "../../store/workflowBuilderStore"
 import { httpNodeSchema, type HttpNodeValues } from "../schemas/http.schema"
@@ -21,6 +22,8 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
     defaultValues: {
       method: config?.method || "GET",
       url: config?.url || "",
+      headers: typeof config?.headers === "object" ? JSON.stringify(config.headers, null, 2) : config?.headers || "",
+      body: typeof config?.body === "object" ? JSON.stringify(config.body, null, 2) : config?.body || "",
     },
   })
 
@@ -29,10 +32,36 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
   // Instant store sync on values change
   useEffect(() => {
     const { unsubscribe } = watch((values) => {
-      updateNodeConfig(nodeId, values)
+      let headersObj = values.headers;
+      try {
+        if (values.headers && values.headers.trim() !== "") {
+          headersObj = JSON.parse(values.headers);
+        }
+      } catch (e) {
+        // Keep as string if not valid JSON yet
+      }
+
+      let bodyObj = values.body;
+      try {
+        if (values.body && values.body.trim() !== "") {
+          bodyObj = JSON.parse(values.body);
+        }
+      } catch (e) {
+        // Keep as string if not valid JSON yet
+      }
+
+      updateNodeConfig(nodeId, {
+        method: values.method,
+        url: values.url,
+        headers: headersObj,
+        body: bodyObj,
+      })
     })
     return () => unsubscribe()
   }, [watch, nodeId, updateNodeConfig])
+
+  const method = watch("method")
+  const showBody = ["POST", "PUT", "PATCH"].includes(method || "")
 
   return (
     <Form {...form}>
@@ -83,6 +112,46 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="headers"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="http-headers-input">Headers (JSON)</FormLabel>
+              <FormControl>
+                <Textarea
+                  id="http-headers-input"
+                  placeholder='{\n  "Authorization": "Bearer key_123",\n  "Content-Type": "application/json"\n}'
+                  className="font-mono text-xs h-24"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {showBody && (
+          <FormField
+            control={form.control}
+            name="body"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="http-body-input">Request Body (JSON / Text)</FormLabel>
+                <FormControl>
+                  <Textarea
+                    id="http-body-input"
+                    placeholder='{\n  "message": "{{context.data.promptResult}}"\n}'
+                    className="font-mono text-xs h-32"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
       </form>
     </Form>
   )
