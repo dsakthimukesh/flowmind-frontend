@@ -108,7 +108,7 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
               {samplePayload}
             </pre>
           </div>
-        </div>
+        </CardContent>
       </div>
     </Card>
   )
