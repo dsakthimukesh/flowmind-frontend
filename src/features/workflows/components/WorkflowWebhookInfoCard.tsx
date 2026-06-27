@@ -60,8 +60,8 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
             <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
               Webhook URL (POST)
             </label>
-            <div className="flex items-center gap-2 bg-muted p-2 rounded border border-border">
-              <span className="font-mono text-[11px] text-muted-foreground break-all select-all select-text overflow-hidden text-ellipsis flex-1 whitespace-nowrap">
+            <div className="flex items-start gap-2 bg-muted p-2 rounded border border-border">
+              <span className="font-mono text-[11px] text-muted-foreground break-all select-all select-text flex-1">
                 {triggerUrl}
               </span>
               <button
