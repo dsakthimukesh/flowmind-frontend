@@ -108,3 +108,13 @@ export const uploadDocument = async (
     data: response.data.data.document,
   }
 }
+
+export const deleteDocument = async (
+  kbId: string,
+  docId: string
+): Promise<ApiResponse<void>> => {
+  const response = await apiClient.delete<ApiResponse<void>>(
+    `/v1/knowledge-bases/${kbId}/documents/${docId}`
+  )
+  return response.data
+}

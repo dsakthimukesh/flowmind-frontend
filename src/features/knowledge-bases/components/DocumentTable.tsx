@@ -1,5 +1,5 @@
 import React from "react"
-import { Eye, FileText } from "lucide-react"
+import { Eye, FileText, Trash2 } from "lucide-react"
 import {
   Table,
   TableBody,
@@ -17,9 +17,10 @@ import { EmptyState } from "@/components/common/EmptyState"
 interface DocumentTableProps {
   documents: DocumentItem[]
   onViewDetails: (docId: string) => void
+  onDelete?: (docId: string) => void
 }
 
-export const DocumentTable = React.memo(({ documents, onViewDetails }: DocumentTableProps) => {
+export const DocumentTable = React.memo(({ documents, onViewDetails, onDelete }: DocumentTableProps) => {
   const formatFileSize = (bytes: number) => {
     if (bytes === undefined || bytes === null || bytes === 0) return "0 Bytes"
     const k = 1024
@@ -44,7 +45,7 @@ export const DocumentTable = React.memo(({ documents, onViewDetails }: DocumentT
         <TableHead className="w-[120px]">File Size</TableHead>
         <TableHead className="w-[150px]">Status</TableHead>
         <TableHead className="w-[180px]">Uploaded At</TableHead>
-        <TableHead className="w-[100px] text-right">Actions</TableHead>
+        <TableHead className="w-[200px] text-right">Actions</TableHead>
       </TableRow>
     ),
     []
@@ -82,16 +83,30 @@ export const DocumentTable = React.memo(({ documents, onViewDetails }: DocumentT
                       {formatDate(doc.uploadedAt)}
                     </TableCell>
                     <TableCell className="py-3.5 text-right">
-                      <Button
-                        id={`doc-view-detail-${doc.id}`}
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onViewDetails(doc.id)}
-                        className="h-8 gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <Eye className="h-3.5 w-3.5" />
-                        Details
-                      </Button>
+                      <div className="flex justify-end gap-1.5">
+                        <Button
+                          id={`doc-view-detail-${doc.id}`}
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => onViewDetails(doc.id)}
+                          className="h-8 gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Eye className="h-3.5 w-3.5" />
+                          Details
+                        </Button>
+                        {onDelete && (
+                          <Button
+                            id={`doc-delete-${doc.id}`}
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => onDelete(doc.id)}
+                            className="h-8 gap-1 text-destructive hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                            Delete
+                          </Button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}

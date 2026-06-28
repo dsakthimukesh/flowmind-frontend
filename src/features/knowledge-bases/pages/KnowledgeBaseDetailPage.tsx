@@ -13,6 +13,7 @@ import { DocumentDetailDrawer } from "../components/DocumentDetailDrawer"
 import { KnowledgeBaseStatsSkeleton, DocumentTableSkeleton } from "../components/KnowledgeBaseSkeleton"
 import { ErrorState } from "@/components/common/ErrorState"
 import { toast } from "sonner"
+import { useDeleteDocument } from "../hooks/useDeleteDocument"
 
 export const KnowledgeBaseDetailPage = () => {
   const { knowledgeBaseId } = useParams<{ knowledgeBaseId: string }>()
@@ -39,6 +40,8 @@ export const KnowledgeBaseDetailPage = () => {
     isRefetching: isRefetchingDocs,
   } = useDocuments(kbId)
 
+  const { mutateAsync: deleteDoc } = useDeleteDocument()
+
   // Document details drawer state
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -55,6 +58,21 @@ export const KnowledgeBaseDetailPage = () => {
   const handleViewDetails = (docId: string) => {
     setSelectedDocId(docId)
     setDrawerOpen(true)
+  }
+
+  const handleDeleteDocument = async (docId: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this document? This action cannot be undone."
+    )
+    if (!confirmDelete) return
+
+    try {
+      await deleteDoc({ kbId, docId })
+      toast.success("Document deleted successfully")
+      refetchDocs()
+    } catch {
+      toast.error("Failed to delete document")
+    }
   }
 
   const isRefreshing = isRefetchingKb || isRefetchingDocs
@@ -148,7 +166,11 @@ export const KnowledgeBaseDetailPage = () => {
                   <FileText className="h-4 w-4 text-primary" />
                   Document Library
                 </div>
-                <DocumentTable documents={documents} onViewDetails={handleViewDetails} />
+                <DocumentTable
+                  documents={documents}
+                  onViewDetails={handleViewDetails}
+                  onDelete={handleDeleteDocument}
+                />
               </div>
 
               {/* Drawer View overlay */}
