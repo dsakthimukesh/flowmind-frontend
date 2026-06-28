@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { PageContainer } from "@/components/common/PageContainer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   BookOpen,
   HelpCircle,
@@ -11,7 +10,6 @@ import {
   GitPullRequest,
   CheckCircle2,
   AlertCircle,
-  ArrowRight,
   Database,
   PlayCircle
 } from "lucide-react"
@@ -31,16 +29,53 @@ export const GuidesPage = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-2 md:grid-cols-4 w-full md:w-[600px] bg-muted/60">
-          <TabsTrigger value="getting-started" className="text-xs font-semibold">Getting Started</TabsTrigger>
-          <TabsTrigger value="variables" className="text-xs font-semibold">Variables Guide</TabsTrigger>
-          <TabsTrigger value="scenarios" className="text-xs font-semibold">Tutorial Scenarios</TabsTrigger>
-          <TabsTrigger value="triggers" className="text-xs font-semibold">Webhooks & API</TabsTrigger>
-        </TabsList>
+      {/* Sleek navigation tabs using standard state */}
+      <div className="flex border border-border bg-card p-1 rounded-lg max-w-2xl mb-6 shadow-sm">
+        <button
+          onClick={() => setActiveTab("getting-started")}
+          className={`flex-1 py-2 text-center text-xs font-semibold rounded-md transition-all cursor-pointer ${
+            activeTab === "getting-started"
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          }`}
+        >
+          Getting Started
+        </button>
+        <button
+          onClick={() => setActiveTab("variables")}
+          className={`flex-1 py-2 text-center text-xs font-semibold rounded-md transition-all cursor-pointer ${
+            activeTab === "variables"
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          }`}
+        >
+          Variables Guide
+        </button>
+        <button
+          onClick={() => setActiveTab("scenarios")}
+          className={`flex-1 py-2 text-center text-xs font-semibold rounded-md transition-all cursor-pointer ${
+            activeTab === "scenarios"
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          }`}
+        >
+          Tutorial Scenarios
+        </button>
+        <button
+          onClick={() => setActiveTab("triggers")}
+          className={`flex-1 py-2 text-center text-xs font-semibold rounded-md transition-all cursor-pointer ${
+            activeTab === "triggers"
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          }`}
+        >
+          Webhooks & API
+        </button>
+      </div>
 
-        {/* ─── TAB 1: GETTING STARTED ────────────────────────────────────────── */}
-        <TabsContent value="getting-started" className="space-y-6 outline-none">
+      {/* ─── TAB 1: GETTING STARTED ────────────────────────────────────────── */}
+      {activeTab === "getting-started" && (
+        <div className="space-y-6">
           <Card className="border-primary/10 bg-gradient-to-r from-card to-primary/5">
             <CardHeader>
               <CardTitle className="text-xl font-bold flex items-center gap-2 text-primary">
@@ -150,10 +185,12 @@ export const GuidesPage = () => {
               </div>
             </Card>
           </div>
-        </TabsContent>
+        </div>
+      )}
 
-        {/* ─── TAB 2: VARIABLES GUIDE ────────────────────────────────────────── */}
-        <TabsContent value="variables" className="space-y-6 outline-none">
+      {/* ─── TAB 2: VARIABLES GUIDE ────────────────────────────────────────── */}
+      {activeTab === "variables" && (
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="text-xl font-bold flex items-center gap-2">
@@ -264,10 +301,12 @@ export const GuidesPage = () => {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
+      )}
 
-        {/* ─── TAB 3: TUTORIAL SCENARIOS ──────────────────────────────────────── */}
-        <TabsContent value="scenarios" className="space-y-6 outline-none">
+      {/* ─── TAB 3: TUTORIAL SCENARIOS ──────────────────────────────────────── */}
+      {activeTab === "scenarios" && (
+        <div className="space-y-6">
           {/* Scenario 1 Accordion Card */}
           <Card>
             <CardHeader className="border-b border-border bg-muted/20">
@@ -359,10 +398,12 @@ export const GuidesPage = () => {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
+      )}
 
-        {/* ─── TAB 4: WEBHOOKS & API ─────────────────────────────────────────── */}
-        <TabsContent value="triggers" className="space-y-6 outline-none">
+      {/* ─── TAB 4: WEBHOOKS & API ─────────────────────────────────────────── */}
+      {activeTab === "triggers" && (
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="text-xl font-bold flex items-center gap-2">
@@ -420,8 +461,8 @@ Content-Type: application/json`}
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        </div>
+      )}
     </PageContainer>
   )
 }
