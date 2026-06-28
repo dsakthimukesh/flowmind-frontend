@@ -37,9 +37,16 @@ export const getDocuments = async (kbId: string): Promise<ApiResponse<DocumentIt
   const response = await apiClient.get<ApiResponse<any>>(
     `/v1/knowledge-bases/${kbId}/documents`
   )
+  const mappedDocs = (response.data?.data?.documents || []).map((d: any) => ({
+    id: d.id,
+    name: d.fileName || "",
+    status: d.status,
+    uploadedAt: d.createdAt || "",
+    sizeBytes: d.fileSize || 0,
+  }))
   return {
     ...response.data,
-    data: response.data.data.documents,
+    data: mappedDocs,
   }
 }
 
@@ -50,9 +57,20 @@ export const getDocument = async (
   const response = await apiClient.get<ApiResponse<any>>(
     `/v1/knowledge-bases/${kbId}/documents/${docId}`
   )
+  const d = response.data?.data?.document
+  const mappedDoc = d ? {
+    id: d.id,
+    name: d.fileName || "",
+    status: d.status,
+    chunkCount: d.chunkCount || 0,
+    embeddingStatus: d.status === "READY" ? "COMPLETED" : d.status,
+    metadata: d.metadata || {},
+    uploadedAt: d.createdAt || "",
+    sizeBytes: d.fileSize || 0,
+  } : null
   return {
     ...response.data,
-    data: response.data.data.document,
+    data: mappedDoc as any,
   }
 }
 

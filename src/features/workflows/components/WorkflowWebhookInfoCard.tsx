@@ -43,7 +43,7 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
   }
 
   return (
-    <Card className="h-full flex flex-col justify-between">
+    <Card className="bg-card border-border shadow-sm">
       <div>
         <CardHeader>
           <CardTitle className="text-xl font-bold flex items-center gap-2">
@@ -54,7 +54,7 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
             Trigger executions programmatically from external systems (Zapier, Microsoft Power Automate, Postman).
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4 text-sm">
+        <CardContent className="grid gap-6 text-sm md:grid-cols-2 lg:grid-cols-3">
           {/* Webhook URL Section */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
@@ -79,7 +79,7 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
           </div>
 
           {/* Authentication Header Section */}
-          <div className="space-y-1.5 border-t border-border pt-3">
+          <div className="space-y-1.5 md:border-l md:border-border md:pl-6">
             <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
               <Key className="h-3 w-3" /> Authorization Header
             </label>
@@ -92,7 +92,7 @@ export const WorkflowWebhookInfoCard = React.memo(({ workflowId }: WorkflowWebho
           </div>
 
           {/* Sample JSON Payload Section */}
-          <div className="space-y-1.5 border-t border-border pt-3">
+          <div className="space-y-1.5 md:col-span-2 lg:col-span-1 lg:border-l lg:border-border lg:pl-6">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
                 <Terminal className="h-3 w-3" /> Sample Request Body

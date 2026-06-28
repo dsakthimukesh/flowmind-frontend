@@ -9,7 +9,6 @@ import {
   Mail,
   GitPullRequest,
   CheckCircle2,
-  AlertCircle,
   Database,
   PlayCircle
 } from "lucide-react"
@@ -449,16 +448,7 @@ Content-Type: application/json`}
                 </div>
               </div>
 
-              {/* Alert Warning */}
-              <div className="bg-amber-500/10 text-amber-600 dark:text-amber-400 p-4 rounded-lg border border-amber-500/20 text-xs flex gap-2.5 items-start">
-                <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold">Important Rate-Limit Note:</span>
-                  <p className="mt-1 leading-normal">
-                    If you are running on the free-tier Gemini API key, calls originating from cloud server IP addresses (like Railway) may be blocked. We recommend setting your <code>GROQ_API_KEY</code> variable in your Railway dashboard to utilize the fast and free Llama 3.1 models, which are fully whitelisted for cloud execution.
-                  </p>
-                </div>
-              </div>
+
             </CardContent>
           </Card>
         </div>

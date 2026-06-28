@@ -112,10 +112,9 @@ export const WorkflowDetailPage = () => {
       />
 
       <div className="grid gap-6 md:grid-cols-3">
-        {/* Workflow info card & webhook triggers */}
-        <div className="md:col-span-1 space-y-6">
+        {/* Workflow info card */}
+        <div className="md:col-span-1">
           <WorkflowCard workflow={workflow} />
-          <WorkflowWebhookInfoCard workflowId={id} />
         </div>
 
         {/* Versions Table */}
@@ -129,6 +128,11 @@ export const WorkflowDetailPage = () => {
             currentRole={currentRole}
             onPublishClick={handlePublishClick}
           />
+        </div>
+
+        {/* Webhook triggers spanning full width */}
+        <div className="md:col-span-3">
+          <WorkflowWebhookInfoCard workflowId={id} />
         </div>
       </div>
 
