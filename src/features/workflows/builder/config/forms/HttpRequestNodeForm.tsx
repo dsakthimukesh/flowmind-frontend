@@ -125,6 +125,7 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
                   placeholder='{\n  "Authorization": "Bearer key_123",\n  "Content-Type": "application/json"\n}'
                   className="font-mono text-xs h-24"
                   {...field}
+                  value={typeof field.value === "object" ? JSON.stringify(field.value, null, 2) : field.value || ""}
                 />
               </FormControl>
               <FormMessage />
@@ -145,6 +146,7 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
                     placeholder='{\n  "message": "{{context.data.promptResult}}"\n}'
                     className="font-mono text-xs h-32"
                     {...field}
+                    value={typeof field.value === "object" ? JSON.stringify(field.value, null, 2) : field.value || ""}
                   />
                 </FormControl>
                 <FormMessage />
