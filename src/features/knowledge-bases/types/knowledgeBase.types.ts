@@ -33,4 +33,6 @@ export interface DocumentDetail {
   metadata?: Record<string, any>
   uploadedAt: string
   sizeBytes: number
+  errorMessage?: string | null
+  storageKey?: string
 }

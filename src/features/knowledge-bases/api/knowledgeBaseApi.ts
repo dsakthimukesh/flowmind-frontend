@@ -67,6 +67,8 @@ export const getDocument = async (
     metadata: d.metadata || {},
     uploadedAt: d.createdAt || "",
     sizeBytes: d.fileSize || 0,
+    errorMessage: d.errorMessage || null,
+    storageKey: d.storageKey || "",
   } : null
   return {
     ...response.data,
