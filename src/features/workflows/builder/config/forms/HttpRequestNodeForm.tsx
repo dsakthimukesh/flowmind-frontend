@@ -34,7 +34,7 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
     const { unsubscribe } = watch((values) => {
       let headersObj = values.headers;
       try {
-        if (values.headers && values.headers.trim() !== "") {
+        if (typeof values.headers === "string" && values.headers.trim() !== "") {
           headersObj = JSON.parse(values.headers);
         }
       } catch (e) {
@@ -43,7 +43,7 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
 
       let bodyObj = values.body;
       try {
-        if (values.body && values.body.trim() !== "") {
+        if (typeof values.body === "string" && values.body.trim() !== "") {
           bodyObj = JSON.parse(values.body);
         }
       } catch (e) {
