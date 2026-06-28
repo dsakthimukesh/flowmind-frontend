@@ -11,7 +11,7 @@ export const validateConnectivity = (
     const incoming = edges.filter((e) => e.target === node.id)
     const outgoing = edges.filter((e) => e.source === node.id)
 
-    if (node.type === "START") {
+    if (node.type?.toUpperCase() === "START") {
       if (nodes.length > 1 && outgoing.length === 0) {
         errors.push({
           id: `rule-connectivity-${node.id}`,
@@ -21,7 +21,7 @@ export const validateConnectivity = (
           rule: "All nodes connected",
         })
       }
-    } else if (node.type === "END") {
+    } else if (node.type?.toUpperCase() === "END") {
       if (incoming.length === 0) {
         errors.push({
           id: `rule-connectivity-${node.id}`,

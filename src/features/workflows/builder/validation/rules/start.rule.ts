@@ -4,7 +4,7 @@ import { type ValidationError } from "../types/validation.types"
 export const validateStartNode = (
   nodes: BuilderNode[]
 ): ValidationError[] => {
-  const startNodes = nodes.filter((n) => n.type === "START")
+  const startNodes = nodes.filter((n) => n.type?.toUpperCase() === "START")
   const errors: ValidationError[] = []
 
   if (startNodes.length === 0) {

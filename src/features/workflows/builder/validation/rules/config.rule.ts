@@ -17,14 +17,15 @@ export const validateConfig = (
   nodes.forEach((node) => {
     const { type, id, data } = node
     const config = data?.config
+    const upperType = type?.toUpperCase()
 
-    if (type === "START" || type === "END") {
+    if (upperType === "START" || upperType === "END") {
       return
     }
 
     let schema: any = null
 
-    switch (type) {
+    switch (upperType) {
       case "PROMPT":
         schema = promptNodeSchema
         break

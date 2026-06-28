@@ -14,7 +14,7 @@ const validatePathStartToEnd = (
   edges: BuilderEdge[]
 ): ValidationError[] => {
   const errors: ValidationError[] = []
-  const startNode = nodes.find((n) => n.type === "START")
+  const startNode = nodes.find((n) => n.type?.toUpperCase() === "START")
 
   if (!startNode) {
     // No start node to traverse from (handled by validateStartNode)
@@ -42,7 +42,7 @@ const validatePathStartToEnd = (
     const currentId = queue.shift()!
     const currentNode = nodes.find((n) => n.id === currentId)
 
-    if (currentNode?.type === "END") {
+    if (currentNode?.type?.toUpperCase() === "END") {
       endReached = true
       break
     }
@@ -96,8 +96,8 @@ export const validateWorkflow = (
   // Rule 6: Path existence (Start -> End)
   // Only execute path check if we have exactly one START node and at least one END node
   // to avoid redundant errors when basic structure is invalid.
-  const hasOneStart = nodes.filter((n) => n.type === "START").length === 1
-  const hasAtLeastOneEnd = nodes.filter((n) => n.type === "END").length >= 1
+  const hasOneStart = nodes.filter((n) => n.type?.toUpperCase() === "START").length === 1
+  const hasAtLeastOneEnd = nodes.filter((n) => n.type?.toUpperCase() === "END").length >= 1
   if (hasOneStart && hasAtLeastOneEnd) {
     errors.push(...validatePathStartToEnd(nodes, edges))
   }
