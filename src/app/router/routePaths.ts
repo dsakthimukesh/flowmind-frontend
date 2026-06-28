@@ -19,4 +19,5 @@ export const ROUTE_PATHS = {
   API_KEYS: "/api-keys",
   AUDIT_LOGS: "/audit-logs",
   SETTINGS: "/settings",
+  HELP: "/help",
 } as const

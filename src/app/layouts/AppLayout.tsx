@@ -16,6 +16,7 @@ import {
   Building,
   ChevronDown,
   User,
+  HelpCircle,
 } from "lucide-react"
 
 import { useUiStore } from "@/stores/uiStore"
@@ -76,6 +77,7 @@ export const AppLayout = () => {
       ? [{ name: "Audit Logs", path: "/audit-logs", icon: FileText }]
       : []),
     { name: "Settings", path: "/settings", icon: Settings },
+    { name: "Help & Guides", path: "/help", icon: HelpCircle },
   ]
 
   const SidebarContent = () => (

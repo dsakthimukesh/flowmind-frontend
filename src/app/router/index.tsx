@@ -32,6 +32,7 @@ const TeamPage = lazy(() => import("@/features/team/pages/TeamPage").then((m) =>
 const ApiKeysPage = lazy(() => import("@/features/api-keys/pages/ApiKeysPage").then((m) => ({ default: m.ApiKeysPage })))
 const AuditLogsPage = lazy(() => import("@/features/audit-logs/pages/AuditLogsPage").then((m) => ({ default: m.AuditLogsPage })))
 const SettingsPage = lazy(() => import("@/features/settings/pages/SettingsPage").then((m) => ({ default: m.SettingsPage })))
+const GuidesPage = lazy(() => import("@/features/guides/pages/GuidesPage").then((m) => ({ default: m.GuidesPage })))
 
 const router = createBrowserRouter([
   // Public auth routes
@@ -75,6 +76,7 @@ const router = createBrowserRouter([
             ],
           },
           { path: ROUTE_PATHS.SETTINGS, element: <RouteErrorBoundary><SettingsPage /></RouteErrorBoundary> },
+          { path: ROUTE_PATHS.HELP, element: <RouteErrorBoundary><GuidesPage /></RouteErrorBoundary> },
         ],
       },
     ],
