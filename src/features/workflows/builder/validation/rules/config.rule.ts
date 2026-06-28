@@ -72,7 +72,8 @@ export const validateConfig = (
 
     const result = schema.safeParse(config)
     if (!result.success) {
-      result.error.errors.forEach((err: any) => {
+      const issues = result.error?.issues || result.error?.errors || []
+      issues.forEach((err: any) => {
         errors.push({
           id: `rule-config-${id}-${err.path.join(".")}`,
           type: "node",
