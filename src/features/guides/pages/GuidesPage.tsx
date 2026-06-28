@@ -342,7 +342,7 @@ export const GuidesPage = () => {
                   </li>
                   <li>
                     <span className="font-bold text-foreground">2. RAG Query Node:</span>
-                    <br />• Query: <span className="text-primary">"Find syntax standard constraints for the code: {{context.data.codeDiffText}}"</span>
+                    <br />• Query: <span className="text-primary">{"Find syntax standard constraints for the code: {{context.data.codeDiffText}}"}</span>
                   </li>
                   <li>
                     <span className="font-bold text-foreground">3. Prompt Node:</span>
