@@ -174,12 +174,12 @@ export const WorkflowBuilderPage = () => {
       />
 
       {/* Main Builder Area */}
-      <div className="flex flex-1 h-full min-h-0 overflow-hidden relative">
-        {/* Left Side: Drag & Drop Node Selectors */}
-        <NodePalette />
+      <ReactFlowProvider>
+        <div className="flex flex-1 h-full min-h-0 overflow-hidden relative">
+          {/* Left Side: Drag & Drop Node Selectors */}
+          <NodePalette />
 
-        {/* Center: React Flow Canvas Viewport Wrapper */}
-        <ReactFlowProvider>
+          {/* Center: React Flow Canvas Viewport Wrapper */}
           <div className="flex-1 h-full w-full relative flex">
             <WorkflowCanvas />
             
@@ -190,51 +190,51 @@ export const WorkflowBuilderPage = () => {
               onValidate={() => setActiveTab("validation")}
             />
           </div>
-        </ReactFlowProvider>
 
-        {/* Right Side: Desktop Sidebar (Hidden on Mobile) */}
-        <div className="hidden lg:flex flex-col h-full w-80 border-l border-border bg-card/90 shrink-0">
-          {/* Tabs header */}
-          <div className="flex border-b border-border bg-muted/40 p-1.5 shrink-0">
-            <button
-              id="sidebar-tab-config"
-              onClick={() => setActiveTab("config")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                activeTab === "config"
-                  ? "bg-card text-primary shadow-sm border border-border/40"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
-              }`}
-            >
-              Configuration
-            </button>
-            <button
-              id="sidebar-tab-validation"
-              onClick={() => setActiveTab("validation")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1 ${
-                activeTab === "validation"
-                  ? "bg-card text-primary shadow-sm border border-border/40"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
-              }`}
-            >
-              Validation
-              <ValidationBadge />
-            </button>
+          {/* Right Side: Desktop Sidebar (Hidden on Mobile) */}
+          <div className="hidden lg:flex flex-col h-full w-80 border-l border-border bg-card/90 shrink-0">
+            {/* Tabs header */}
+            <div className="flex border-b border-border bg-muted/40 p-1.5 shrink-0">
+              <button
+                id="sidebar-tab-config"
+                onClick={() => setActiveTab("config")}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                  activeTab === "config"
+                    ? "bg-card text-primary shadow-sm border border-border/40"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                }`}
+              >
+                Configuration
+              </button>
+              <button
+                id="sidebar-tab-validation"
+                onClick={() => setActiveTab("validation")}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1 ${
+                  activeTab === "validation"
+                    ? "bg-card text-primary shadow-sm border border-border/40"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                }`}
+              >
+                Validation
+                <ValidationBadge />
+              </button>
+            </div>
+
+            <div className="flex-1 min-h-0">
+              {activeTab === "config" ? (
+                <NodeConfigPanel />
+              ) : (
+                <ValidationPanel />
+              )}
+            </div>
           </div>
 
-          <div className="flex-1 min-h-0">
-            {activeTab === "config" ? (
-              <NodeConfigPanel />
-            ) : (
-              <ValidationPanel />
-            )}
+          {/* Drawer overlay for Mobile (Hidden on Desktop) */}
+          <div className="lg:hidden">
+            <NodeConfigDrawer />
           </div>
         </div>
-
-        {/* Drawer overlay for Mobile (Hidden on Desktop) */}
-        <div className="lg:hidden">
-          <NodeConfigDrawer />
-        </div>
-      </div>
+      </ReactFlowProvider>
 
       {/* Recover draft dialog modal prompt */}
       {draftToRestore && (
