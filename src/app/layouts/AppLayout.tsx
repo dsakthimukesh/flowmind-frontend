@@ -167,7 +167,7 @@ export const AppLayout = () => {
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground">
       {/* Desktop Sidebar */}
-      <aside className={cn("hidden md:block shrink-0 transition-all duration-300", sidebarOpen ? "w-64" : "w-0")}>
+      <aside className={cn("hidden md:block shrink-0 transition-all duration-300 overflow-hidden", sidebarOpen ? "w-64" : "w-0")}>
         <div className="w-64 h-full">
           <SidebarContent />
         </div>

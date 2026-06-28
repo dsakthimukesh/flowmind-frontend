@@ -11,7 +11,8 @@ export interface WorkflowExecution {
 
 export interface ExecutionLog {
   id: string
-  timestamp: string
+  timestamp?: string
+  createdAt?: string
   nodeId?: string | null
   level: "INFO" | "WARN" | "ERROR"
   message: string

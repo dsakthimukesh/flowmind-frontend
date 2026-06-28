@@ -19,8 +19,8 @@ interface RecentExecutionsTableProps {
 export const RecentExecutionsTable = React.memo(({ executions }: RecentExecutionsTableProps) => {
   const latestTen = executions.slice(0, 10)
 
-  const renderStatus = (status: ExecutionItem["status"]) => {
-    switch (status) {
+  const renderStatus = (status: string) => {
+    switch (status?.toLowerCase()) {
       case "success":
         return (
           <span className="inline-flex items-center gap-1 bg-green-500/10 text-green-600 dark:text-green-400 px-2.5 py-0.5 rounded-full text-xs font-medium">

@@ -17,9 +17,18 @@ export const getOrganization = async (): Promise<ApiResponse<OrganizationDetail>
 
 export const getMembers = async (): Promise<ApiResponse<OrganizationMember[]>> => {
   const response = await apiClient.get<ApiResponse<any>>("/v1/organizations/me/members")
+  const members = (response.data?.data?.members || []).map((m: any) => ({
+    id: m.userId,
+    email: m.user?.email || "",
+    firstName: m.user?.firstName || "",
+    lastName: m.user?.lastName || "",
+    role: m.role,
+    status: m.user?.status?.toLowerCase() === "active" ? "active" : "pending",
+    joinedAt: m.joinedAt,
+  }))
   return {
     ...response.data,
-    data: response.data.data.members,
+    data: members,
   }
 }
 

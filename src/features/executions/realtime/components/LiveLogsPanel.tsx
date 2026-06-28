@@ -142,7 +142,7 @@ export const LiveLogsPanel = React.memo(
                           className="hover:bg-muted/10 transition-colors border-border align-top"
                         >
                           <TableCell className="py-2.5 w-[180px] font-medium text-muted-foreground whitespace-nowrap">
-                            {formatTimestamp(log.timestamp)}
+                            {formatTimestamp(log.createdAt || log.timestamp || "")}
                           </TableCell>
                           <TableCell className="py-2.5 w-[120px] font-semibold text-foreground/80 truncate">
                             {log.nodeId || <span className="text-muted-foreground/30 italic">-</span>}

@@ -104,7 +104,7 @@ export const ExecutionLogsTable = React.memo(
                         className="hover:bg-muted/10 transition-colors border-border align-top"
                       >
                         <TableCell className="py-2.5 font-medium text-muted-foreground whitespace-nowrap">
-                          {formatTimestamp(log.timestamp)}
+                          {formatTimestamp(log.createdAt || log.timestamp || "")}
                         </TableCell>
                         <TableCell className="py-2.5 font-semibold text-foreground/80 truncate max-w-[120px]">
                           {log.nodeId || <span className="text-muted-foreground/30 italic">-</span>}

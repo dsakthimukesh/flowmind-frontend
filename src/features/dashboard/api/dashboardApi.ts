@@ -17,9 +17,17 @@ export const getOrganizationSummary = async (): Promise<ApiResponse<Organization
 
 export const getExecutionMetrics = async (): Promise<ApiResponse<ExecutionMetrics>> => {
   const response = await apiClient.get<ApiResponse<any>>("/v1/metrics/executions")
+  const m = response.data?.data?.metrics
   return {
     ...response.data,
-    data: response.data.data.metrics,
+    data: {
+      totalExecutions: m?.total || 0,
+      running: m?.running || 0,
+      success: m?.success || 0,
+      failed: m?.failed || 0,
+      successRate: m?.successRate ? m.successRate / 100 : 0,
+      avgDuration: m?.avgDurationMs || 0,
+    },
   }
 }
 
