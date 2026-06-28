@@ -50,6 +50,15 @@ export const PromptNodeForm = React.memo(({ nodeId, config }: PromptNodeFormProp
                 />
               </FormControl>
               <FormMessage />
+              <div className="bg-muted/50 p-2.5 rounded-lg text-[11px] text-muted-foreground border border-border mt-2 space-y-1">
+                <p className="font-bold text-foreground flex items-center gap-1">💡 Insert dynamic data using double brackets:</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li><code>{"{{context.data.emailBody}}"}</code> - Email body text</li>
+                  <li><code>{"{{context.data.senderEmail}}"}</code> - Sender's email address</li>
+                  <li><code>{"{{context.data.emailSubject}}"}</code> - Email subject line</li>
+                  <li><code>{"{{context.data.ragContext}}"}</code> - RAG Query PDF search results</li>
+                </ul>
+              </div>
             </FormItem>
           )}
         />

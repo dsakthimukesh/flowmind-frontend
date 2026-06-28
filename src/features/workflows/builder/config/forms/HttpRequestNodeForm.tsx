@@ -148,6 +148,14 @@ export const HttpRequestNodeForm = React.memo(({ nodeId, config }: HttpRequestNo
                   />
                 </FormControl>
                 <FormMessage />
+                <div className="bg-muted/50 p-2.5 rounded-lg text-[11px] text-muted-foreground border border-border mt-2 space-y-1">
+                  <p className="font-bold text-foreground">💡 Reference dynamic variables in your JSON body:</p>
+                  <ul className="list-disc pl-4 space-y-0.5">
+                    <li><code>{"{{context.data.promptResult}}"}</code> - Output from the **Prompt** node</li>
+                    <li><code>{"{{context.data.summary}}"}</code> - Output from the **Summarize** node</li>
+                    <li><code>{"{{context.data.senderEmail}}"}</code> - Sender's email address</li>
+                  </ul>
+                </div>
               </FormItem>
             )}
           />
