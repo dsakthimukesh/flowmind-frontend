@@ -21,6 +21,7 @@ export const ChatNodeForm = React.memo(({ nodeId, config }: ChatNodeFormProps) =
     defaultValues: {
       systemPrompt: config?.systemPrompt || "",
       temperature: config?.temperature !== undefined ? config.temperature : 0.7,
+      outputKey: config?.outputKey || "",
     },
   })
 
@@ -79,6 +80,27 @@ export const ChatNodeForm = React.memo(({ nodeId, config }: ChatNodeFormProps) =
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control as any}
+          name="outputKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="output-key-input">Output Variable Name</FormLabel>
+              <FormControl>
+                <Input
+                  id="output-key-input"
+                  placeholder="e.g. chatResult (default)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+              <p className="text-[10px] text-muted-foreground mt-1">
+                The context variable key where the conversational chat response will be saved (defaults to <code>chatResult</code>).
+              </p>
             </FormItem>
           )}
         />

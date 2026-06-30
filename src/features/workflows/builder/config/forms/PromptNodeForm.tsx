@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import { useWorkflowBuilderStore } from "../../store/workflowBuilderStore"
 import { promptNodeSchema, type PromptNodeValues } from "../schemas/prompt.schema"
 
@@ -19,6 +20,7 @@ export const PromptNodeForm = React.memo(({ nodeId, config }: PromptNodeFormProp
     mode: "onChange",
     defaultValues: {
       prompt: config?.prompt || "",
+      outputKey: config?.outputKey || "",
     },
   })
 
@@ -59,6 +61,27 @@ export const PromptNodeForm = React.memo(({ nodeId, config }: PromptNodeFormProp
                   <li><code>{"{{context.data.ragContext}}"}</code> - RAG Query PDF search results</li>
                 </ul>
               </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="outputKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="output-key-input">Output Variable Name</FormLabel>
+              <FormControl>
+                <Input
+                  id="output-key-input"
+                  placeholder="e.g. promptResult (default)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+              <p className="text-[10px] text-muted-foreground mt-1">
+                The context variable key where the generated response will be saved (defaults to <code>promptResult</code>).
+              </p>
             </FormItem>
           )}
         />

@@ -19,6 +19,7 @@ export const SummarizeNodeForm = React.memo(({ nodeId, config }: SummarizeNodeFo
     mode: "onChange",
     defaultValues: {
       maxLength: config?.maxLength !== undefined ? config.maxLength : "",
+      outputKey: config?.outputKey || "",
     },
   })
 
@@ -30,6 +31,7 @@ export const SummarizeNodeForm = React.memo(({ nodeId, config }: SummarizeNodeFo
       const parsedVal = values.maxLength !== undefined ? parseInt(values.maxLength as any) : undefined
       updateNodeConfig(nodeId, {
         maxLength: isNaN(parsedVal as any) ? undefined : parsedVal,
+        outputKey: values.outputKey || "",
       })
     })
     return () => unsubscribe()
@@ -54,6 +56,27 @@ export const SummarizeNodeForm = React.memo(({ nodeId, config }: SummarizeNodeFo
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control as any}
+          name="outputKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="output-key-input">Output Variable Name</FormLabel>
+              <FormControl>
+                <Input
+                  id="output-key-input"
+                  placeholder="e.g. summaryResult (default)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+              <p className="text-[10px] text-muted-foreground mt-1">
+                The context variable key where the generated summary will be saved (defaults to <code>summaryResult</code>).
+              </p>
             </FormItem>
           )}
         />

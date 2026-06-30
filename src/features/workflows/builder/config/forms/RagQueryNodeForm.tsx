@@ -21,6 +21,7 @@ export const RagQueryNodeForm = React.memo(({ nodeId, config }: RagQueryNodeForm
     defaultValues: {
       knowledgeBaseId: config?.knowledgeBaseId || "",
       query: config?.query || "",
+      outputKey: config?.outputKey || "",
     },
   })
 
@@ -70,6 +71,27 @@ export const RagQueryNodeForm = React.memo(({ nodeId, config }: RagQueryNodeForm
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="outputKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="output-key-input">Output Variable Name</FormLabel>
+              <FormControl>
+                <Input
+                  id="output-key-input"
+                  placeholder="e.g. ragContext (default)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+              <p className="text-[10px] text-muted-foreground mt-1">
+                The context variable key where the retrieved text chunks will be saved (defaults to <code>ragContext</code>).
+              </p>
             </FormItem>
           )}
         />
